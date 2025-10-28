@@ -4,20 +4,18 @@ import AppLayout from './layouts/AppLayout.vue';
 </script>
 
 <template>
-  <main class="container">
-    <AppLayout>
-      <RouterView />
-    </AppLayout>
-    <!-- 
-    <AppHeader />
+  <AppLayout>
     <RouterView />
-    <AppFooter />
-    -->
-    <Button>
-      Click
-      <img src="@/assets/logo.svg" alt="" />
-    </Button>
-  </main>
+  </AppLayout>
+  <!-- 
+  <AppHeader />
+  <RouterView />
+  <AppFooter />
+  -->
+  <Button>
+    Click
+    <img src="@/assets/logo.svg" alt="" />
+  </Button>
 </template>
 
 <style scoped>
