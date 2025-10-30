@@ -23,6 +23,16 @@ const router = createRouter({
       path: '/cards/:id',
       name: 'card',
       component: () => import('../views/Card.vue'),
+    }, 
+    {
+      path: '/meals',
+      name: 'meals',
+      component: () => import('../views/Meals.vue'),
+    },
+    {
+      path: '/meals/:id',
+      name: 'meal',
+      component: () => import('../views/Meal.vue'),
     }
   ],
 })
