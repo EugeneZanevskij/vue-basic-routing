@@ -32,7 +32,7 @@ export const useCardsStore = defineStore('cards', () => {
         if (!favourites.value.includes(id)) {
             favourites.value.push(id);
         } else {
-            favourites.value.filter((favourite) => favourite !== id);
+            favourites.value = favourites.value.filter((favourite) => favourite !== id);
         }
     }
 
