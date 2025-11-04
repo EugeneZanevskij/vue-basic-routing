@@ -1,26 +1,24 @@
 <template>
-    <CardItem v-for="card in cards" :key="card.id" :to="card.id" :name="card.name" :age="card.age" />
+    <CardItem 
+        v-for="card in cardsStore.cards" 
+        :key="card.id" 
+        :id="card.id" 
+        :title="card.title" 
+        :price="card.price"
+        :is-favourite="cardsStore.isFavourite(card.id)"
+        @addToFavourite="cardsStore.addToFavourite"
+    />
 </template>
 
 <script setup>
 import CardItem from '@/components/CardItem.vue';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+import { useCardsStore } from '@/stores/useCardsStore';
 
-const cards = ref([
-    {
-        id: 1,
-        name: 'John Doe',
-        age: 30
-    },
-    {
-        id: 2,
-        name: 'Jane Doe',
-        age: 25
-    },
-    {
-        id: 3,
-        name: 'Bob Smith',
-        age: 35
-    }
-]);
+const cardsStore = useCardsStore()
+
+onMounted(() => {
+    if (cardsStore.cards.length) return;
+    cardsStore.getCards();
+})
 </script>

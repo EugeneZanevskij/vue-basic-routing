@@ -1,7 +1,8 @@
 <template>
-    <RouterLink :to="`/cards/${prop.to}`" class="card">
-        <h3>{{ prop.name }}</h3>
-        <p>{{ prop.age }}</p>
+    <RouterLink :to="`/cards/${prop.id}`" class="card">
+        <h3>{{ prop.title }}</h3>
+        <p>{{ prop.price }}</p>
+        <button @click.prevent="addToFavourite">Favourites</button>
     </RouterLink>
 </template>
 
@@ -9,10 +10,17 @@
 import { RouterLink } from 'vue-router';
 
 const prop = defineProps({
-    to: Number,
-    name: String,
-    age: Number
+    id: Number,
+    title: String,
+    price: Number,
+    isFavourite: Boolean
 })
+
+const emits = defineEmits(['addToFavourite'])
+
+function addToFavourite() {
+    emits('addToFavourite', prop.id);
+}
 </script>
 
 <style scoped>
