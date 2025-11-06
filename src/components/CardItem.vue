@@ -2,19 +2,33 @@
     <RouterLink :to="`/cards/${prop.id}`" class="card">
         <h3>{{ prop.title }}</h3>
         <p>{{ prop.price }}</p>
-        <button @click.prevent="addToFavourite">Favourites</button>
+        <p>Двойная цена {{ getDoublePrice(prop.price) }}</p>
+        <button :class="{ 'favourite': isFavourite }" @click.prevent="addToFavourite">Favourites</button>
     </RouterLink>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { RouterLink } from 'vue-router';
 
-const prop = defineProps({
-    id: Number,
-    title: String,
-    price: Number,
-    isFavourite: Boolean
-})
+// type Props = {
+//     id: number,
+//     title: string,
+//     price: number,
+//     isFavourite: boolean
+// }
+
+interface Props {
+    id: number;
+    title: string;
+    price: number;
+    isFavourite: boolean;
+}
+
+const prop = defineProps<Props>()
+
+function getDoublePrice(price: number): number {
+    return 2 * price;
+}
 
 const emits = defineEmits(['addToFavourite'])
 
@@ -35,5 +49,9 @@ function addToFavourite() {
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
+}
+
+.favourite {
+    background-color: yellow;
 }
 </style>

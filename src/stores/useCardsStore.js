@@ -4,12 +4,13 @@ import { ref } from 'vue';
 export const useCardsStore = defineStore('cards', () => {
     const cards = ref([]);
     const selectedCard = ref({});
-    const favourites = ref([]);
+    const favourites = ref(getFavouritesImmediately());
 
     async function getCards() {
         const response = await fetch('https://dummyjson.com/products');
         const data = await response.json();
         cards.value = data.products;
+        getFavourites();
     }
 
     async function getCard(id) {
@@ -34,10 +35,27 @@ export const useCardsStore = defineStore('cards', () => {
         } else {
             favourites.value = favourites.value.filter((favourite) => favourite !== id);
         }
+
+        saveFavourites();
     }
 
     function isFavourite(id) {
         return favourites.value.includes(id);
+    }
+
+    function saveFavourites() {
+        localStorage.setItem('favourites', JSON.stringify(favourites.value));
+    }
+
+    function getFavourites() {
+        const storage = localStorage.getItem('favourites');
+        if (storage) {
+            favourites.value = JSON.parse(storage)
+        }
+    }
+
+    function getFavouritesImmediately() {
+        return JSON.parse(localStorage.getItem('favourites')) || [];
     }
 
     return { 
@@ -47,6 +65,7 @@ export const useCardsStore = defineStore('cards', () => {
         getCards, 
         getFilteredCard, 
         addToFavourite,
-        isFavourite
+        isFavourite,
+        getFavourites
     }
 })

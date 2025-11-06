@@ -20,5 +20,6 @@ const cardsStore = useCardsStore()
 onMounted(() => {
     if (cardsStore.cards.length) return;
     cardsStore.getCards();
+    cardsStore.getFavourites();
 })
 </script>
