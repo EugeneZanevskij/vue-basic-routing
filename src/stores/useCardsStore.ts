@@ -1,10 +1,11 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
+import { CardType } from '../types';
 
 export const useCardsStore = defineStore('cards', () => {
-    const cards = ref([]);
-    const selectedCard = ref({});
-    const favourites = ref(getFavouritesImmediately());
+    const cards = ref<CardType[]>([]);
+    const selectedCard = ref<CardType>();
+    const favourites = ref<number[]>(getFavouritesImmediately());
 
     async function getCards() {
         const response = await fetch('https://dummyjson.com/products');
@@ -13,13 +14,13 @@ export const useCardsStore = defineStore('cards', () => {
         getFavourites();
     }
 
-    async function getCard(id) {
+    async function getCard(id: number) {
         const response = await fetch(`https://dummyjson.com/products/${id}`);
         const data = await response.json();
         selectedCard.value = data;
     }
 
-    function getFilteredCard(id) {
+    function getFilteredCard(id: number) {
         if (cards.value.length) {
             const card = cards.value.find((card) => card.id == id);
             selectedCard.value = card;
@@ -29,7 +30,7 @@ export const useCardsStore = defineStore('cards', () => {
         }
     }
 
-    function addToFavourite(id) {
+    function addToFavourite(id: number) {
         if (!favourites.value.includes(id)) {
             favourites.value.push(id);
         } else {
@@ -39,7 +40,7 @@ export const useCardsStore = defineStore('cards', () => {
         saveFavourites();
     }
 
-    function isFavourite(id) {
+    function isFavourite(id: number) {
         return favourites.value.includes(id);
     }
 
@@ -55,7 +56,9 @@ export const useCardsStore = defineStore('cards', () => {
     }
 
     function getFavouritesImmediately() {
-        return JSON.parse(localStorage.getItem('favourites')) || [];
+        //parse требует строку
+        //getItem возвращает строку или null (null || "" = "")
+        return JSON.parse(localStorage.getItem('favourites') || "") || [];
     }
 
     return { 
