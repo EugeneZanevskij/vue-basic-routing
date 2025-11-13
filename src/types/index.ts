@@ -7,7 +7,7 @@ export interface CardType {
     discountPercentage: number;
     rating: number;
     stock: number;
-    tags: string[];
+    tags: (string | SubTag)[];
     brand: string;
     sku: string;
     weight: number;
@@ -43,3 +43,5 @@ export interface Meta {
     barcode: string;
     qrCode: string;
 }
+
+type SubTag = (string | number)[]

@@ -1,4 +1,22 @@
+/* @import './normalize.css'; */
+@import "tailwindcss";
 @import './base.css';
+
+@theme {
+  --color-pasha: #42b883;
+  --color-anton: #35495e;
+  --breakpoint-lgbt: 90rem;
+}
+
+.button {
+  display: inline-block;
+  border-radius: 4px;
+  border: 1px solid var(--color-pasha);
+  color: var(--color-pasha);
+  text-decoration: none;
+  padding: 10px 30px;
+  margin-left: 15px;
+}
 
 #app {
   max-width: 1280px;
@@ -10,7 +28,7 @@
 a,
 .green {
   text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
+  color: var(--color-green);
   transition: 0.4s;
   padding: 3px;
 }

@@ -2,25 +2,19 @@
     <RouterLink :to="`/cards/${prop.id}`" class="card">
         <h3>{{ prop.title }}</h3>
         <p>{{ prop.price }}</p>
-        <p>Двойная цена {{ getDoublePrice(prop.price) }}</p>
-        <button :class="{ 'favourite': isFavourite }" @click.prevent="addToFavourite">Favourites</button>
+        <p v-if="prop.price">Двойная цена {{ getDoublePrice(prop.price) }}</p>
+        <p v-else>Двойная цена {{ getDoublePrice(prop.price || 0) }}</p>
+        <button class="button fill-pasha lgbt:bg-anton text-black p-[3px] border-red-500! rounded-[10px] hover:bg-anton hover:text-white" :class="{ 'favourite': isFavourite }" @click.prevent="addToFavourite">Favourites</button>
     </RouterLink>
 </template>
 
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
 
-// type Props = {
-//     id: number,
-//     title: string,
-//     price: number,
-//     isFavourite: boolean
-// }
-
 interface Props {
     id: number;
     title: string;
-    price: number;
+    price?: number;
     isFavourite: boolean;
 }
 
@@ -39,9 +33,9 @@ function addToFavourite() {
 
 <style scoped>
 .card {
-    background-color: #4CAF50;
+    background-color: var(--color-anton);
     border: none;
-    color: white;
+    color: var(--color-pasha);
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
